@@ -1,6 +1,17 @@
-import React from 'react'
+
+import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+
 
 const Register = () => {
+
+    
+const [isChecked, setIsChecked] = useState(false);
+const navigate = useNavigate()
+const handlog = () =>{
+   
+    navigate("/")
+}
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#3561d0] relative">
 
@@ -8,13 +19,7 @@ const Register = () => {
 
             <div className="relative z-10 text-center">
 
-                <div className="flex items-center justify-center gap-2 mb-6">
-
-                    <div className="w-5 h-5 bg-white"></div>
-
-                </div>
-
-
+               
                 <div className="bg-white rounded-md shadow-md p-6 w-[320px] text-left">
 
                     <div className="mb-4">
@@ -43,19 +48,19 @@ const Register = () => {
                     </div>
 
                     <div className="flex items-center mb-4">
-                        <input type="checkbox" className="mr-2" />
-
-
+                        <input type="checkbox" className="mr-2"
+                            onChange={(e) => setIsChecked(e.target.checked)} />
+                        <label className="text-sm text-gray-600">
+                            Accepter les termes et la politique
+                        </label>
                     </div>
-
 
                     <button
 
-                        className={`w-full py-2 rounded-md text-white "
+                        className={`w-full py-2 rounded-md texte-black bg-blue-400 "
                             `}
                     >
-
-                    </button>
+                     sinscrire</button>
                 </div>
 
                 {/* Links */}
@@ -63,7 +68,7 @@ const Register = () => {
 
                     <p className="text-gray-300 mt-1">
                         vous avez deja un compte ?{' '}
-                        <span className="text-yellow-400 cursor-pointer hover:underline">
+                        <span  onClick={handlog} className="text-yellow-400 cursor-pointer hover:underline">
                             se connecter
                         </span>
                     </p>
