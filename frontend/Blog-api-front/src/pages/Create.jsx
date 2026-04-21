@@ -18,6 +18,9 @@ function Create() {
                 }
             });
             console.log(response.data);
+            if(response.status === 201) {
+                alert("Post créé avec succès");
+            }
             setTitle("");
             setContent("");
         }

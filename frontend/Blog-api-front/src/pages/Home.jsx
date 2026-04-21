@@ -39,6 +39,15 @@ function Home() {
                     ))}
                 </div>
             </div>
+            <div>
+                <button className="bg-white text-black inline rounded-xl px-4 py-2 font-bold cursor-pointer" onClick={() => {
+                    localStorage.removeItem("token");
+                    navigate("/");
+                }}>
+                    logout
+                </button>
+            </div>
+
         </section>
     )
 }
