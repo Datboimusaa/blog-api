@@ -8,6 +8,9 @@ function Home() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    if(!token) {
+        navigate("/");
+    }
 
     const getPosts = async () => {
         try {

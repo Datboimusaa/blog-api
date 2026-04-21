@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useState } from "react"
+import {useNavigate} from "react-router-dom"
 
 function Create() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const token = localStorage.getItem("token");
-    console.log(token);
+    const navigate = useNavigate();
+    if(!token) {
+        navigate("/");
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
