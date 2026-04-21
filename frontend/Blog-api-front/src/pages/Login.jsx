@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 const Login = () => {
   const navigate = useNavigate()
 
@@ -10,6 +11,11 @@ const Login = () => {
   
 
   const handleLogin = async () => {
+    
+    if (!email.trim() || !password.trim()) {
+      setError('Email et mot de passe requis');
+      return;
+    }
     try {
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
