@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { IoMailOpen } from "react-icons/io5";
+import { TbLockPassword } from "react-icons/tb";
 
 
 const Login = () => {
@@ -49,7 +51,8 @@ const Login = () => {
       <div className="relative z-10 text-center">
         <div className="bg-white rounded-md shadow-md p-6 w-[320px] text-left">
 
-          <div className="mb-4">
+          <div className="mb-4 flex gap-1 items-center">
+            <IoMailOpen className="w-6 h-6  text-olive-600"/>
             <input
               type="email"
               placeholder="E-mail"
@@ -59,7 +62,8 @@ const Login = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 flex gap-1 items-center">
+                       <TbLockPassword  className="w-6 h-6 gap-2  text-olive-600"/>
             <input
               type="password"
               placeholder="Mot de passe"
