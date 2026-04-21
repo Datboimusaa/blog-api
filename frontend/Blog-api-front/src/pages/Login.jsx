@@ -4,96 +4,101 @@ import axios from 'axios'
 import { IoMailOpen } from "react-icons/io5";
 import { TbLockPassword } from "react-icons/tb";
 
-
 const Login = () => {
   const navigate = useNavigate()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  
+  const [message, setMessage] = useState("")
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const handleLogin = async () => {
-    
-   
     try {
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password
-        }
+        { email, password }
       )
 
-      console.log(res.data)
-
-      // stocker le token
       localStorage.setItem("token", res.data.token)
 
-      // redirection après succès
-      navigate("/Home")
+      setMessage("Connexion réussie ")
+      setIsSuccess(true)
+
+      setTimeout(() => {
+        navigate("/Home")
+      }, 1500)
 
     } catch (error) {
-      console.error(error)
-      alert("Email ou mot de passe incorrect")
+      setMessage("Email ou mot de passe incorrect ")
+      setIsSuccess(false)
+
+      // disparaît après 3s
+      setTimeout(() => {
+        setMessage("")
+      }, 3000)
     }
-   
-    
-  }
-    const handinscrit = () => {
-    navigate("/register")
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#2f5bcb] relative text-black">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
 
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,_#ffffff_1px,_transparent_1px)] [background-size:40px_40px]"></div>
+      <div className="bg-white shadow-2xl rounded-2xl p-8 w-[370px] border border-blue-100">
 
-      <div className="relative z-10 text-center">
-        <div className="bg-white rounded-md shadow-md p-6 w-[320px] text-left">
+        <h2 className="text-2xl font-bold text-center mb-6 text-blue-700">
+          Connexion
+        </h2>
 
-          <div className="mb-4 flex gap-1 items-center">
-            <IoMailOpen className="w-6 h-6  text-olive-600"/>
-            <input
-              type="email"
-              placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border-b border-gray-300 focus:outline-none py-2 text-sm"
-            />
-          </div>
-
-          <div className="mb-4 flex gap-1 items-center">
-                       <TbLockPassword  className="w-6 h-6 gap-2  text-olive-600"/>
-            <input
-              type="password"
-              placeholder="Mot de passe"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border-b border-gray-300 focus:outline-none py-2 text-sm"
-            />
-          </div>
-
-          <div className="flex items-center mb-4 ">
-            <input type="checkbox" className="mr-2" />
-            <span> garder moi connecter</span>
-          </div>
-
-          <button
-            onClick={handleLogin}
-            className="w-full py-2 rounded-md text-white bg-blue-600 cursor-pointer"
+        {/* MESSAGE */}
+        {message && (
+          <div
+            className={`p-3 mb-4 text-center rounded-lg font-medium ${
+              isSuccess
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
           >
-            se connecter
-          </button>
+            {message}
+          </div>
+        )}
 
+        <div className="mb-4 flex items-center gap-3 border border-blue-200 rounded-lg px-3 py-2 focus-within:ring-2 ring-blue-500 transition">
+          <IoMailOpen className="text-blue-500" />
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="outline-none text-black w-full placeholder-gray-400"
+          />
         </div>
-         <div className="mt-4 text-sm">
-          <p className="text-gray-300 mt-1">
-            vous n'avez pas compte ?{' '}
-            <span  onClick={handinscrit} className="text-yellow-400 cursor-pointer hover:underline">
-              s'inscrire
-            </span>
-          </p>
+
+        <div className="mb-5 flex items-center gap-3 border border-blue-200 rounded-lg px-3 py-2 focus-within:ring-2 ring-blue-500 transition">
+          <TbLockPassword className="text-blue-500" />
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="outline-none text-black w-full placeholder-gray-400"
+          />
         </div>
+
+        <button
+          onClick={handleLogin}
+          className="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shadow-md"
+        >
+          Se connecter
+        </button>
+
+        <p className="text-center text-sm mt-5 text-gray-600">
+          Pas de compte ?{" "}
+          <span
+            onClick={() => navigate("/register")}
+            className="text-blue-600 font-medium cursor-pointer hover:underline"
+          >
+            S'inscrire
+          </span>
+        </p>
       </div>
     </div>
   )
