@@ -1,20 +1,26 @@
 import axios from "axios";
 import Post from "../components/ui/Post.jsx";
-import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 function Home() {
 
     const [posts, setPosts] = useState([]);
-    const navigate = useNavigate();
-    const token = localStorage.getItem("token");
+    const [editId, setEditId] = useState(null);
+    const [editTitle, setEditTitle] = useState("");
+    const [editContent, setEditContent] = useState("");
+  
 
-    useEffect(() => {
-        window.history.pushState(null, "", window.location.href);
-        window.onpopstate = function () {
-            window.history.pushState(null, "", window.location.href);
-        };
-    }, []);
+    const token = localStorage.getItem("token");
+    const userId = JSON.parse(atob(token.split(".")[1])).id;
+
+
+    const handleEditPost = (post) => {
+        setEditId(post._id);
+        setEditTitle(post.title);
+        setEditContent(post.content);
+
+
+    };
 
     const getPosts = async () => {
         try {
@@ -33,41 +39,103 @@ function Home() {
         getPosts();
     }, []);
 
-    const handleDeletePost = async (postId) => {
+    const handleUpdatePost = async () => {
         try {
-            const response = await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
+            const res = await axios.put(
+                `http://localhost:5000/api/posts/${editId}`,
+                {
+                    title: editTitle,
+                    content: editContent
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-            });
-            setPosts(posts.filter(post => post._id !== postId));
+            );
+
+            setPosts(posts.map(p =>
+                p._id === editId ? res.data : p
+            ));
+
+            setEditId(null);
+
         } catch (error) {
             console.error(error);
         }
     };
 
+    const handleDeletePost = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setPosts(posts.filter(p => p._id !== id));
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <section className="h-screen px-5">
+
+
+            {editId && (
+                <div className="mb-4 p-4 border rounded bg-gray-50">
+
+                    <input
+                        className="border p-2 w-full mb-2"
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                    />
+
+                    <textarea
+                        className="border p-2 w-full mb-2"
+                        value={editContent}
+                        onChange={(e) => setEditContent(e.target.value)}
+                    />
+
+                    <button
+                        onClick={handleUpdatePost}
+                        className="bg-green-600 text-white px-4 py-2 rounded mr-2"
+                    >
+                        Modifier
+                    </button>
+
+                    <button
+                        onClick={() => setEditId(null)}
+                        className="bg-gray-500 text-white px-4 py-2 rounded"
+                    >
+                        Annuler
+                    </button>
+
+                </div>
+            )}
+
             <div className="flex flex-col py-2">
                 {posts.map((post) => (
-                    <Post key={post._id} user={post.author.name} title={post.title} content={post.content} handleEdit={() => handleEditPost(post._id)} handleDelete={()=> {
-                        if(post.author._id === JSON.parse(atob(token.split(".")[1])).id) {
-                            const response = axios.delete(`http://localhost:5000/api/posts/${post._id}`, {
-                                headers: {
-                                    Authorization: `Bearer ${token}`
-                                }
-                            });
-                            setPosts(posts.filter(p => p._id !== post._id));
-                        }else {
-                            alert("Vous pouvez seulement supprimer vos propres posts");
+                    <Post
+                        key={post._id}
+                        user={post.author.name}
+                        title={post.title}
+                        content={post.content}
+
+                        handleEdit={
+                            post.author._id === userId
+                                ? () => handleEditPost(post)
+                                : null
                         }
-                    }} />
+                        handleDelete={() => handleDeletePost(post._id)}
+                    />
                 ))}
             </div>
 
         </section>
-    )
+    );
 }
 
-export default Home
+export default Home;
