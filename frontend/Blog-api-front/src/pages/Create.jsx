@@ -27,7 +27,10 @@ function Create() {
     }
     return (
 
-        <section className="flex justify-center">
+        <section className="flex items-center justify-center flex-col">
+            <div className="py-2">
+               <button className="bg-white text-black cursor-pointer px-4 py-2 rounded-xl font-bold" onClick={() => window.history.back()}>Retour</button>
+            </div>
             <form className="w-2xl border border-gray-200 p-4 px-8" onSubmit={handleSubmit}>
                 <h2 className="font-bold text-xl py-4">
                     Creer un post

@@ -45,7 +45,7 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#3561d0] relative">
+    <div className="min-h-screen flex items-center justify-center bg-[#3561d0] relative text-black">
 
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,_#ffffff_1px,_transparent_1px)] [background-size:40px_40px]"></div>
 

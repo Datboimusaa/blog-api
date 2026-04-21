@@ -42,7 +42,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#2f5bcb] relative">
+    <div className="min-h-screen flex items-center justify-center bg-[#2f5bcb] relative text-black">
 
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,_#ffffff_1px,_transparent_1px)] [background-size:40px_40px]"></div>
 
