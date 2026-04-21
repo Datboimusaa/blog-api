@@ -8,6 +8,13 @@ function Home() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    
+    useEffect(() => {
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+        window.history.pushState(null, "", window.location.href);
+    };
+}, []);
 
     const getPosts = async () => {
         try {
