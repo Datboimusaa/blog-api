@@ -8,9 +8,6 @@ function Home() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
-    if(!token) {
-        navigate("/");
-    }
 
     const getPosts = async () => {
         try {
@@ -43,6 +40,9 @@ function Home() {
                 </div>
             </div>
             <div>
+                <div>
+                    
+                </div>
                 <button className="bg-white text-black inline rounded-xl px-4 py-2 font-bold cursor-pointer" onClick={() => {
                     localStorage.removeItem("token");
                     navigate("/");

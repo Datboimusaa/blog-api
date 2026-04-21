@@ -4,6 +4,7 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Create from './pages/Create.jsx';
 import Home from './pages/Home.jsx';
+import PrivateRoute from './pages/privateRoute.jsx';
 
 
 const App = () => {
@@ -12,11 +13,13 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/home" element={<Home />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/create" element={<Create />} />
+          <Route path="/home" element={<Home />} />
+        </Route>
       </Routes>
     </Router>
-  )    
+  )
 }
 
 export default App

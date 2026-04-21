@@ -7,9 +7,6 @@ function Create() {
     const [content, setContent] = useState("");
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
-    if(!token) {
-        navigate("/");
-    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
