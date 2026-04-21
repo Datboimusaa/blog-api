@@ -33,11 +33,36 @@ function Home() {
         getPosts();
     }, []);
 
+    const handleDeletePost = async (postId) => {
+        try {
+            const response = await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setPosts(posts.filter(post => post._id !== postId));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
         <section className="h-screen px-5">
             <div className="flex flex-col py-2">
                 {posts.map((post) => (
-                    <Post key={post._id} user={post.author.name} title={post.title} content={post.content} handleEdit={() => handleEditPost(post._id)} handleDelete={() => handleDeletePost(post._id)} />
+                    <Post key={post._id} user={post.author.name} title={post.title} content={post.content} handleEdit={() => handleEditPost(post._id)} handleDelete={()=> {
+                        if(post.author._id === JSON.parse(atob(token.split(".")[1])).id) {
+                            const response = axios.delete(`http://localhost:5000/api/posts/${post._id}`, {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            });
+                            setPosts(posts.filter(p => p._id !== post._id));
+                        }else {
+                            alert("Vous pouvez seulement supprimer vos propres posts");
+                        }
+                    }} />
                 ))}
             </div>
 

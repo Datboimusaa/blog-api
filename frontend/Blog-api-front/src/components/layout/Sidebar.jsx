@@ -13,7 +13,7 @@ function Sidebar() {
                 </NavLink>
                 <NavLink to="/create" className="w-[90%]  px-4 py-2 flex gap-2 items-center rounded-xl  font-bold">
                     <FaPlus size={24} />
-                    <span className="text-lg">Create Post</span>
+                    <span className="text-lg">Créer Post</span>
                 </NavLink>
             </div>
         </aside>
