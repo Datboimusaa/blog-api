@@ -37,7 +37,7 @@ function Home() {
         <section className="h-screen px-5">
             <div className="flex flex-col py-2">
                 {posts.map((post) => (
-                    <Post key={post._id} user={post.author.name} title={post.title} content={post.content} />
+                    <Post key={post._id} user={post.author.name} title={post.title} content={post.content} handleEdit={() => handleEditPost(post._id)} handleDelete={() => handleDeletePost(post._id)} />
                 ))}
             </div>
 

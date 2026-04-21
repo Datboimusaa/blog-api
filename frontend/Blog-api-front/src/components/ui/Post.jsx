@@ -4,7 +4,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { MdOutlineDelete } from "react-icons/md";
 import { useState } from "react";
 
-function Post({ user, title, content }) {
+function Post({ user, title, content, handleEdit, handleDelete }) {
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -18,11 +18,11 @@ function Post({ user, title, content }) {
                 <button className="cursor-pointer relative" onClick={() => setShowMenu(!showMenu)}>
                     <HiDotsVertical />
                     <div className={`absolute bg-white rounded border border-gray-200 p-2 left-[-35px] bottom-[-68px] ${showMenu ? 'block' : 'hidden'}`}>
-                        <div className="flex items-center gap-2 text-gray-500 hover:text-blue-500 cursor-pointer">
+                        <div className="flex items-center gap-2 text-gray-500 hover:text-blue-500 cursor-pointer" onClick={handleEdit}>
                             <FiEdit2 />
                             <span>Edit</span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-500 hover:text-red-500 cursor-pointer">
+                        <div className="flex items-center gap-2 text-gray-500 hover:text-red-500 cursor-pointer" onClick={handleDelete}>
                             <MdOutlineDelete />
                             <span>Delete</span>
                         </div>
