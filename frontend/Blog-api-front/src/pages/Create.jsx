@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
+import { IoMdArrowBack } from "react-icons/io";
 
 function Create() {
     const [title, setTitle] = useState("");
@@ -31,11 +32,11 @@ function Create() {
     }
     return (
 
-        <section className="flex items-center justify-center flex-col">
+        <section>
             <div className="py-2">
-               <button className="bg-white text-black cursor-pointer px-4 py-2 rounded-xl font-bold" onClick={() => window.history.back()}>Retour</button>
+               <button className="ext-white cursor-pointer px-4 py-2 -justify-self-start rounded-xl font-bold" onClick={() => window.history.back()}> <IoMdArrowBack className="inline" />Retour</button>
             </div>
-            <form className="w-2xl border border-gray-200 p-4 px-8" onSubmit={handleSubmit}>
+            <form className="w-2xl p-4 px-8" onSubmit={handleSubmit}>
                 <h2 className="font-bold text-xl py-4">
                     Creer un post
                 </h2>
@@ -55,7 +56,7 @@ function Create() {
                         onChange={(e) => setContent(e.target.value)}></textarea>
                 </div>
                 <div className="flex">
-                    <button className="bg-white text-black cursor-pointer px-4 py-2 rounded-xl font-bold" type="submit">Post</button>
+                    <button className="bg-black text-white cursor-pointer px-4 py-2 rounded-xl font-bold" type="submit"> Post </button>
                 </div>
             </form>
         </section>

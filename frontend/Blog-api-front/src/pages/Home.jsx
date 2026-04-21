@@ -1,5 +1,5 @@
 import axios from "axios";
-import Post from "../components/layout/Post"
+import Post from "../components/ui/Post.jsx";
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
@@ -8,13 +8,13 @@ function Home() {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
-    
+
     useEffect(() => {
-    window.history.pushState(null, "", window.location.href);
-    window.onpopstate = function () {
         window.history.pushState(null, "", window.location.href);
-    };
-}, []);
+        window.onpopstate = function () {
+            window.history.pushState(null, "", window.location.href);
+        };
+    }, []);
 
     const getPosts = async () => {
         try {
@@ -34,28 +34,11 @@ function Home() {
     }, []);
 
     return (
-        <section className="flex justify-center h-screen">
-            <div className="w-3xl border border-gray-500 py-4 h-full rounded overflow-auto">
-                <div className="border border-gray-500 p-4 px-8 flex items-center justify-between">
-                    <h2 className="font-bold text-lg">Posts</h2>
-                    <button className="bg-white text-black rounded-xl px-4 py-2 font-bold cursor-pointer" onClick={() => navigate('/create')}>Creer +</button>
-                </div>
-                <div className="pt-10">
-                    {posts.map((post) => (
-                        <Post key={post._id} user={post.author.name} title={post.title} content={post.content} />
-                    ))}
-                </div>
-            </div>
-            <div>
-                <div>
-                    
-                </div>
-                <button className="bg-white text-black inline rounded-xl px-4 py-2 font-bold cursor-pointer" onClick={() => {
-                    localStorage.removeItem("token");
-                    navigate("/");
-                }}>
-                    logout
-                </button>
+        <section className="h-screen px-5">
+            <div className="flex flex-col py-2">
+                {posts.map((post) => (
+                    <Post key={post._id} user={post.author.name} title={post.title} content={post.content} handleEdit={() => handleEditPost(post._id)} handleDelete={() => handleDeletePost(post._id)} />
+                ))}
             </div>
 
         </section>
