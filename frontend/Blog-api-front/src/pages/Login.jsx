@@ -12,10 +12,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     
-    if (!email.trim() || !password.trim()) {
-      setError('Email et mot de passe requis');
-      return;
-    }
+   
     try {
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -79,7 +76,7 @@ const Login = () => {
 
           <button
             onClick={handleLogin}
-            className="w-full py-2 rounded-md text-black bg-blue-600 cursor-pointer"
+            className="w-full py-2 rounded-md text-white bg-blue-600 cursor-pointer"
           >
             se connecter
           </button>
