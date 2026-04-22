@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom"
 function Dashboard() {
   return (
     <>
-      <div className="grid h-screen grid-cols-[150px_1fr] lg:grid-cols-[250px_1fr]  grid-rows-[auto_1fr]">
+      <div className="grid h-screen grid-cols-[100px_1fr] lg:grid-cols-[250px_1fr]  grid-rows-[auto_1fr]">
         <Header />
         <Sidebar />
         <div className="overflow-auto"><Outlet /></div>

@@ -9,11 +9,11 @@ function Sidebar() {
             <div className="flex flex-col items-center py-4 gap-4">
                 <NavLink to="/home" className="w-[90%]  px-4 py-2 flex gap-2 items-center rounded-xl  font-bold">
                     <FaHome size={24} />
-                    <span className="text-lg">Home</span>
+                    <span className="text-lg hidden lg:inline">Home</span>
                 </NavLink>
                 <NavLink to="/create" className="w-[90%]  px-4 py-2 flex gap-2 items-center rounded-xl  font-bold">
                     <FaPlus size={24} />
-                    <span className="text-lg">Créer Post</span>
+                    <span className="text-lg hidden lg:inline">Créer Post</span>
                 </NavLink>
             </div>
         </aside>

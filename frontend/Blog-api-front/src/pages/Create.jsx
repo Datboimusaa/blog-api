@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 import { IoMdArrowBack } from "react-icons/io";
+import toast, {Toaster} from "react-hot-toast";
 
 function Create() {
     const [title, setTitle] = useState("");
@@ -21,7 +22,7 @@ function Create() {
             });
             console.log(response.data);
             if(response.status === 201) {
-                alert("Post créé avec succès");
+                toast.success("Post créé avec succès");
             }
             setTitle("");
             setContent("");
@@ -59,6 +60,7 @@ function Create() {
                     <button className="bg-black text-white cursor-pointer px-4 py-2 rounded-xl font-bold" type="submit"> Post </button>
                 </div>
             </form>
+            {/* <Toaster position="top-center"/> */}
         </section>
     )
 }
