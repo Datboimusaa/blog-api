@@ -38,7 +38,11 @@ const Register = () => {
         try {
             await axios.post(
                 "http://localhost:5000/api/auth/register",
-                { name, email, password }
+                {
+                    name,
+                    email,
+                    assword
+                }
             )
 
             setMessage("Inscription réussie ")
@@ -66,11 +70,10 @@ const Register = () => {
                 {/* MESSAGE */}
                 {message && (
                     <div
-                        className={`p-3 mb-4 text-center rounded-lg font-medium ${
-                            isSuccess
+                        className={`p-3 mb-4 text-center rounded-lg font-medium ${isSuccess
                                 ? "bg-green-100 text-green-700"
                                 : "bg-red-100 text-red-700"
-                        }`}
+                            }`}
                     >
                         {message}
                     </div>
@@ -123,11 +126,10 @@ const Register = () => {
                 <button
                     onClick={handleRegister}
                     disabled={!isChecked}
-                    className={`w-full py-2 rounded-lg text-white font-semibold transition ${
-                        isChecked
+                    className={`w-full py-2 rounded-lg text-white font-semibold transition ${isChecked
                             ? "bg-blue-600 hover:bg-blue-700"
                             : "bg-gray-400"
-                    }`}
+                        }`}
                 >
                     S'inscrire
                 </button>
